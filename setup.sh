@@ -43,6 +43,7 @@ DEFAULT_CASKS=(
 DEFAULT_FORMULAE=(
   bat        # Better cat — syntax highlighting, line numbers, git diff
   btop       # Modern resource monitor
+  copilot-cli # GitHub Copilot CLI for the terminal
   eza        # Modern ls replacement with icons and git status
   fastfetch  # Fast system info display (shown at shell startup)
   fzf        # Fuzzy finder for the terminal
@@ -53,6 +54,7 @@ DEFAULT_FORMULAE=(
   kubectl    # Kubernetes CLI
   ncdu       # Disk usage visualizer
   node       # Node.js runtime + npm (required for Claude Code and JS tooling)
+  anomalyco/tap/opencode # OpenCode AI coding agent
   python     # Python 3 + pip3
   ripgrep    # Extremely fast grep replacement (rg)
   tree       # Display folder structure as a tree
@@ -694,6 +696,10 @@ configure_dock() {
   run defaults write com.apple.dock wvous-tr-modifier -int 0
   run defaults write com.apple.dock wvous-bl-corner   -int 5  # Bot-left  → Screen saver
   run defaults write com.apple.dock wvous-bl-modifier -int 0
+
+  # Remove all pinned app icons from the Dock (persistent-apps = pinned icons).
+  # Leaves running apps and folders/stacks untouched; they return after relaunch.
+  run defaults write com.apple.dock persistent-apps -array
 
   # Reset Launchpad layout (keeps wallpaper)
   run find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete 2>/dev/null || true

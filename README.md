@@ -51,11 +51,13 @@ DRY_RUN=1 ./setup.sh
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder — `Ctrl+R` history, `Ctrl+T` file picker, `Alt+C` cd |
 | [gh](https://cli.github.com/) | GitHub CLI — create PRs, manage issues, clone repos from the terminal |
 | [git](https://git-scm.com/) | Latest version of Git (newer than macOS built-in) |
+| [GitHub Copilot CLI](https://github.com/github/copilot-cli) | GitHub Copilot coding agent for the terminal |
 | [htop](https://htop.dev/) | Interactive process monitor |
 | [jq](https://jqlang.github.io/jq/) | Parse and query JSON in the terminal |
 | [kubectl](https://kubernetes.io/docs/reference/kubectl/) | Kubernetes CLI |
 | [ncdu](https://dev.yorhel.nl/ncdu) | Disk usage visualizer in the terminal |
 | [node](https://nodejs.org/) | Node.js runtime + npm |
+| [OpenCode](https://github.com/anomalyco/opencode) | Open-source AI coding agent for the terminal |
 | [python](https://www.python.org/) | Python 3 runtime + `pip3` |
 | [ripgrep](https://github.com/BurntSushi/ripgrep) | Extremely fast grep replacement (`rg`) |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | Display folder structure as a tree |
@@ -128,6 +130,28 @@ The script also writes the following settings to `~/Library/Application Support/
 | `terminal.external.osxExec` | `Terminal.app` |
 
 Opens the built-in macOS Terminal when you use **Terminal → New External Terminal** (`⇧⌃C`) in VS Code.
+
+---
+
+## GitHub Copilot CLI
+
+[GitHub Copilot CLI](https://github.com/github/copilot-cli) is installed via Homebrew:
+
+```bash
+brew install copilot-cli
+```
+
+This pairs with the `~/.copilot/skills` directory and the bundled Obsidian skills setup later in the script.
+
+---
+
+## OpenCode
+
+[OpenCode](https://github.com/anomalyco/opencode) is installed via Homebrew:
+
+```bash
+brew install anomalyco/tap/opencode
+```
 
 ---
 
@@ -247,6 +271,7 @@ The script applies the following system configuration automatically.
 - Faster Mission Control animation; windows grouped by app
 - Spaces not auto-reordered; Dashboard disabled
 - Hot corners: top-left → Mission Control, top-right → Desktop, bottom-left → Screen Saver
+- **All default pinned app icons removed** from the Dock on first run
 
 ### Keyboard & Input
 - Fast key repeat (`KeyRepeat 1`, `InitialKeyRepeat 10`)
@@ -359,9 +384,9 @@ The script opens System Settings automatically and waits for you to confirm befo
 17. Creates AI agent skills directories (`~/.copilot/skills`, `~/.claude/skills`, `~/.agents/skills`)
 18. Clones **Obsidian skills** (`kepano/obsidian-skills`) into `~/.copilot/skills/`
 19. Installs **Claude Code** globally via npm
-19. Applies all macOS system preferences (Finder → Transmission)
-20. Configures macOS Terminal — UTF-8, Pro theme, MesloLGS Nerd Font
-21. Disables Gatekeeper
+20. Applies all macOS system preferences (Finder → Transmission)
+21. Configures macOS Terminal — UTF-8, Pro theme, MesloLGS Nerd Font
+22. Disables Gatekeeper
 
 ---
 
