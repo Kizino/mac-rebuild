@@ -36,6 +36,7 @@ DEFAULT_CASKS=(
   docker               # Container platform (includes docker CLI + compose)
   bruno                # API client
   discord              # Voice, video & text chat
+  karabiner-elements   # Keyboard customiser — remap keys and create complex modifications
   lm-studio            # Run local AI/LLM models
   obsidian             # Markdown note-taking & knowledge base
 )
@@ -114,6 +115,7 @@ app_bundle_name() {
     visual-studio-code) echo "Visual Studio Code.app" ;;
     docker)             echo "Docker.app" ;;
     bruno)              echo "Bruno.app" ;;
+    karabiner-elements) echo "Karabiner-Elements.app" ;;
     lm-studio)          echo "LM Studio.app" ;;
     obsidian)           echo "Obsidian.app" ;;
     *)                  return 1 ;;
@@ -584,6 +586,55 @@ extensions:
   sh:  {icon: {glyph: 󰆍}}
   zsh: {icon: {glyph: 󰆍}}
 THEME_EOF
+}
+
+configure_karabiner() {
+  # Swaps Cmd and Ctrl on the external keyboard only (vendor_id 3141, product_id 32791),
+  # leaving the internal MacBook keyboard layout unchanged.
+  # This makes the external keyboard feel like a standard Mac layout where
+  # Cmd sits where Ctrl physically is (common on Windows/PC keyboards).
+  local config_dir="$HOME/.config/karabiner"
+  local config_file="$config_dir/karabiner.json"
+
+  log "Configuring Karabiner-Elements..."
+  run mkdir -p "$config_dir"
+
+  if [[ "${DRY_RUN:-0}" == "1" ]]; then
+    printf '[dry-run] write karabiner config to %s\n' "$config_file"
+    return 0
+  fi
+
+  cat > "$config_file" << 'KARABINER_EOF'
+{
+    "profiles": [
+        {
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 32791,
+                        "vendor_id": 3141
+                    },
+                    "ignore_vendor_events": true,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        }
+                    ]
+                }
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}
+KARABINER_EOF
 }
 
 # ==============================================================================
@@ -1159,6 +1210,7 @@ main() {
   configure_ai_skills_dirs
   install_obsidian_skills
   install_claude_code
+  configure_karabiner
 
   # ── macOS preferences ──────────────────────────────────────────────────────
   configure_finder

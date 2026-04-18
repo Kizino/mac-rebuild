@@ -36,6 +36,7 @@ DRY_RUN=1 ./setup.sh
 | [Discord](https://discord.com/) | Voice, video & text chat |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Container platform with built-in `docker` and `docker compose` CLI |
 | [Firefox](https://www.mozilla.org/firefox/) | Web browser |
+| [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | Keyboard customiser — remap keys per device |
 | [LM Studio](https://lmstudio.ai/) | Run local AI/LLM models offline (Llama, Mistral, etc.) |
 | [Obsidian](https://obsidian.md/) | Markdown note-taking & knowledge base |
 | [VS Code](https://code.visualstudio.com/) | Code editor |
@@ -152,6 +153,16 @@ This pairs with the `~/.copilot/skills` directory and the bundled Obsidian skill
 ```bash
 brew install anomalyco/tap/opencode
 ```
+
+---
+
+## Karabiner-Elements
+
+[Karabiner-Elements](https://karabiner-elements.pqrs.org/) is installed and pre-configured to **swap Cmd and Ctrl on the external keyboard only**, leaving the internal MacBook keyboard layout completely unchanged.
+
+This is useful when using a standard PC/Windows keyboard as an external keyboard — the physical Ctrl key sits where Mac users expect Cmd, so the swap makes it feel native.
+
+The config targets a specific device by `vendor_id` / `product_id` and is written to `~/.config/karabiner/karabiner.json` automatically. To update the target device, edit the `configure_karabiner()` function in `setup.sh`.
 
 ---
 
@@ -384,9 +395,10 @@ The script opens System Settings automatically and waits for you to confirm befo
 17. Creates AI agent skills directories (`~/.copilot/skills`, `~/.claude/skills`, `~/.agents/skills`)
 18. Clones **Obsidian skills** (`kepano/obsidian-skills`) into `~/.copilot/skills/`
 19. Installs **Claude Code** via Homebrew Cask (`brew install --cask claude-code`)
-20. Applies all macOS system preferences (Finder → Transmission)
-21. Configures macOS Terminal — UTF-8, Pro theme, MesloLGS Nerd Font
-22. Disables Gatekeeper
+20. Writes **Karabiner-Elements** config — swaps Cmd ↔ Ctrl on the external keyboard only
+21. Applies all macOS system preferences (Finder → Transmission)
+22. Configures macOS Terminal — UTF-8, Pro theme, MesloLGS Nerd Font
+23. Disables Gatekeeper
 
 ---
 
